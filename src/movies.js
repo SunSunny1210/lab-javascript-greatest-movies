@@ -63,14 +63,13 @@ function turnHoursToMinutes(moviesArray) {
     const moviesDuration = [...moviesArray]
     return moviesDuration.map(movies => {
         const durationElements = movies.duration.split(' ');
-        let minutes = 0;
-        durationElements.forEach(el => {
+        const minutes = durationElements.reduce((acc, el) => {
             if (el.includes('h')) {
-                minutes += parseInt(el) * 60;
-            } else if (el.includes('min')){
-                minutes += parseInt(el)
+               return (acc + (parseInt(el))) * 60
+            } else if (el.includes('min')) {
+               return acc + (parseInt(el))
             }
-        })
+        }, 0)
         return {
             ...movies,
             duration: minutes
